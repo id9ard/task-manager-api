@@ -1,11 +1,19 @@
 package com.brossard.taskmanager.repository;
 
 import com.brossard.taskmanager.entity.Task;
+import com.brossard.taskmanager.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository   // 🔹 Indica que es un componente de acceso a datos
+import java.util.List;
+import java.util.Optional;
+
+@Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
-    // No necesitamos escribir métodos; JpaRepository ya provee:
-    // save(), findAll(), findById(), deleteById(), etc.
+
+    // Listar todas las tareas de un usuario específico
+    List<Task> findByUser(User user);
+
+    // Buscar una tarea por su ID y por el usuario al que pertenece (útil para validar propiedad)
+    Optional<Task> findByIdAndUser(Long id, User user);
 }

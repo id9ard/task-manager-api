@@ -23,6 +23,10 @@ public class Task {
     @Column(name = "created_at", updatable = false) // 🔹 No se modifica después de crear
     private LocalDateTime createdAt = LocalDateTime.now(); // 🔹 Fecha/hora actual
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     // Constructores (necesario el vacío para JPA)
     public Task() {}
 
@@ -46,4 +50,7 @@ public class Task {
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 }

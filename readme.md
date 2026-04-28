@@ -59,6 +59,15 @@ sequenceDiagram
         JWTFilter-->>Cliente: 401 Unauthorized
     end
 ```
+## 🔐 Seguridad y pertenencia de datos
+
+Cada usuario registrado solo puede acceder a sus propias tareas. La relación **Usuario → Tareas** se implementa mediante JPA (`@ManyToOne`). Todas las operaciones CRUD (`GET`, `POST`, `PUT`, `DELETE`) verifican que la tarea pertenezca al usuario autenticado antes de ejecutarse.
+
+- Al crear una tarea, se asigna automáticamente al usuario logueado.
+- Al listar tareas, solo se devuelven las del usuario autenticado.
+- Al actualizar o eliminar, se comprueba la propiedad; si la tarea no pertenece al usuario, se devuelve `403 Forbidden` (o `404 Not Found` por seguridad).
+
+Esto garantiza un **aislamiento completo de datos** entre usuarios, una característica esencial en aplicaciones.
 
 ## 📡 Endpoints de la API
 
